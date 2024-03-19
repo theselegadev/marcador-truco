@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de truco</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            outline: none;
+        }
+        .card{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border: solid 1px rgb(201, 199, 199);
+            box-shadow: 0 3px 4px rgba(150, 149, 149, 0.671);
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .name{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #h2{
+            margin: 20px;
+        }
+        .visor{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        p{
+            background-color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            width: 100px;
+            border: solid 1px rgb(201, 199, 199);
+            border-radius: 3px;
+            box-shadow: 0px 1px 2px rgb(190, 186, 186);
+            height: 30px;
+            font-size: large;
+        }
+        .buttons-box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        button{
+            border: none;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            margin: 5px;
+            background-image: linear-gradient(90deg, rgb(182, 8, 8), rgb(255, 42, 4));
+            color: white;
+            font-size: large;
+            cursor: pointer;
+        }
+        button:hover{
+            background-image: linear-gradient(90deg, rgb(204, 9, 9), rgb(180, 5, 5));
+        }
+        .button-truco{
+            display: flex;
+            justify-content: center;
+            justify-content: center;
+            width: 100%;
+        }
+        .button-truco button{
+            width: 100%;
+        }
+        .buttons-nos{
+            margin-right: 10px;
+        }
+        .buttons-eles{
+            margin-left: 10px;
+        }
+        .button-truco button{
+            margin: 10px;
+            border-radius: 5px;
+        } 
+        .button-go {
+            width: 100%;
+        }
+        .button-go button{
+            width: 260px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid black;
+            color: black;
+            background: rgba(0, 0, 0, 0);
+        }
+        .button-go button:hover
+        {
+           background-color: rgb(245, 239, 239);
+        }
+        .quedas{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .quedas p{
+            border: none;
+            text-align: center;
+        }
+        .buttons-quedas{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+        .buttons-quedas button{
+            width: 30px;
+            height: 30px;
+        }
+        input{
+            text-align: center;
+            color: black;
+            font-size: larger;
+            border: none;
+            width: 100px;
+            font-weight: bold;
+        }
+        ::-webkit-input-placeholder{
+            color: black;
+        }
+        .card-number-top{
+            text-align: left;
+            color: rgb(245, 13, 13);
+            font-weight: bolder;
+            font-size: x-large;
+        }
+
+        .number-card-low{
+            text-align: right;
+            color: rgb(245, 13, 13);
+            font-weight: bolder;
+            font-size: x-large;
+        }
+        svg{
+            width: 20px;
+            height: 20px;
+            fill: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-number-top">
+            7 
+            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m462.3 62.6c-54.8-46.7-136.3-38.3-186.6 13.6l-19.7 20.3-19.7-20.3c-50.2-51.9-131.8-60.3-186.6-13.6-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"/></svg>
+        </div>
+        <div class="name">
+            <input id="h2" type="text" class="h1" placeholder="Nós">
+            <input id="h2" class="h2" type="text" placeholder="Eles">
+        </div>
+        <div class="visor">
+            <p></p>
+            <p></p>
+        </div>
+        <div class="buttons-box">
+            <div class="buttons-nos">
+                <button id="button-plus" onclick="back ()">+1</button>
+                <button id="button-minus">-1</button> 
+            </div>
+            <div class="buttons-eles">
+                <button id="button-plus1" onclick="back ()">+1</button>
+                <button id="button-minus1">-1</button>
+            </div>
+        </div>
+        <div class="button-truco">
+            <button onclick="truco ()">Truco</button>
+        </div>
+        <div class="button-go">
+            <button onclick="zerar ()">Zerar</button>
+        </div>
+        <div class="quedas">
+            <p id="queda-nos"></p>
+            <p id="queda-eles"></p>
+        </div>
+        <div class="buttons-quedas">
+            <button id="button-minus-nos">-</button>
+            <button id="button-minus-eles">-</button>
+        </div>
+        <div class="number-card-low">
+            7
+            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m462.3 62.6c-54.8-46.7-136.3-38.3-186.6 13.6l-19.7 20.3-19.7-20.3c-50.2-51.9-131.8-60.3-186.6-13.6-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"/></svg>
+        </div>
+    </div>
+    <script>
+        let contagem = 0
+
+        let contagem1 = 0
+
+        let cont = 0
+
+        let cont1 = 0
+
+        const visor1 = document.getElementsByTagName('p')[0]
+
+        const visor2 = document.getElementsByTagName('p')[1]
+
+        const btn_truco = document.getElementsByTagName('button')[4]
+
+        const btn_plus1 = document.querySelector('#button-plus')
+
+        const btn_plus2 = document.querySelector('#button-plus1')
+
+        const btn_minus1 = document.querySelector('#button-minus')
+        
+        const btn_minus2 = document.querySelector('#button-minus1')
+        
+        const box_queda1 = document.querySelector('#queda-nos')
+
+        const box_queda2 = document.querySelector('#queda-eles')
+
+        const button_minus_nos = document.querySelector('#button-minus-nos')
+
+        const button_minus_eles = document.querySelector('#button-minus-eles')
+
+        box_queda1.innerHTML = contagem
+
+        box_queda2.innerHTML = contagem1
+
+        var item = document.querySelector('#button-plus').innerHTML
+
+        visor1.innerHTML = cont
+        visor2.innerHTML = cont1
+
+        btn_truco.addEventListener('click',function (){
+            if (item === '+9')
+            {
+                btn_plus1.innerHTML= '+12'
+                btn_plus2.innerHTML= '+12'
+                item = '+12'
+            }
+
+            if (item === '+6')
+            {
+                btn_plus1.innerHTML= '+9'
+                btn_plus2.innerHTML= '+9'
+                item = '+9'
+            }
+
+            if (item === '+3')
+            {
+                btn_plus1.innerHTML= '+6'
+                btn_plus2.innerHTML= '+6'
+                item = '+6'
+            }
+
+            if (item === '+1')
+            {
+                btn_plus1.innerHTML= '+3'
+                btn_plus2.innerHTML= '+3'
+                item = '+3'
+            }
+
+            if(item === 'voltar')
+            {
+                btn_plus1.innerHTML= '+1'
+                btn_plus2.innerHTML= '+1'
+                item = '+1'
+            }
+
+            if( item === '+12')
+            {
+                item = 'voltar'
+            }
+        })
+        
+     
+        btn_plus1.addEventListener('click', function (){
+            if (cont < 12)
+            {
+                if(item === '+1')
+                {
+                    cont += 1
+                    visor1.innerHTML = cont
+                    document.querySelector('#button-plus').innerHTML = '+1'
+                    document.querySelector('#button-plus1').innerHTML = '+1'
+                    item='+1'
+                }
+
+                if(item === '+3')
+                {
+                    cont += 3
+                    visor1.innerHTML = cont
+                    document.querySelector('#button-plus').innerHTML = '+1'
+                    document.querySelector('#button-plus1').innerHTML = '+1'
+                    item='+1'
+                }
+
+                if(item === '+6')
+                {
+                    cont += 6
+                    visor1.innerHTML = cont
+                    document.querySelector('#button-plus').innerHTML = '+1'
+                    document.querySelector('#button-plus1').innerHTML = '+1'
+                    item='+1'
+                }
+
+                if(item === '+9')
+                {
+                    cont += 9
+                    visor1.innerHTML = cont
+                    document.querySelector('#button-plus').innerHTML = '+1'
+                    document.querySelector('#button-plus1').innerHTML = '+1'
+                    item='+1'
+                }
+
+                if(item === 'voltar')
+                {
+                    cont += 12
+                    visor1.innerHTML = cont
+                    document.querySelector('#button-plus').innerHTML = '+1'
+                    document.querySelector('#button-plus1').innerHTML = '+1'
+                    item='+1'
+                }
+            }
+            if (cont >= 12)
+            {
+                cont = 12
+                visor1.innerHTML = cont
+            }
+            if (cont === 12)
+            {
+                contagem += 1
+                box_queda1.innerHTML = contagem
+                cont = 0
+                visor1.innerHTML = cont
+                cont1 = 0
+                visor2.innerHTML = cont1
+            }
+        })
+
+        btn_plus2.addEventListener('click', function (){
+            if (cont1 < 12)
+            {
+                if(item === '+1')
+                {
+                    cont1 += 1
+                    visor2.innerHTML = cont1
+                    document.querySelector('#button-plus').innerHTML = '+1'
+                    document.querySelector('#button-plus1').innerHTML = '+1'
+                    item='+1'
+                }
+
+                if(item === '+3')
+                {
+                    cont1 += 3
+                    visor2.innerHTML = cont1
+                    document.querySelector('#button-plus').innerHTML = '+1'
+                    document.querySelector('#button-plus1').innerHTML = '+1'
+                    item='+1'
+                }
+
+                if(item === '+6')
+                {
+                    cont1 += 6
+                    visor2.innerHTML = cont1
+                    document.querySelector('#button-plus').innerHTML = '+1'
+                    document.querySelector('#button-plus1').innerHTML = '+1'
+                    item='+1'
+                }
+
+                if(item === '+9')
+                {
+                    cont1 += 9
+                    visor2.innerHTML = cont1
+                    document.querySelector('#button-plus').innerHTML = '+1'
+                    document.querySelector('#button-plus1').innerHTML = '+1'
+                    item='+1'
+                }
+
+                if(item === 'voltar')
+                {
+                    cont1 += 12
+                    visor2.innerHTML = cont1
+                    document.querySelector('#button-plus').innerHTML = '+1'
+                    document.querySelector('#button-plus1').innerHTML = '+1'
+                    item='+1'
+                }  
+            }
+        if (cont1 >= 12)
+        {
+            cont1 = 12
+            visor2.innerHTML = cont1
+        }
+        if (cont1 === 12)
+        {
+            contagem1 += 1
+            box_queda2.innerHTML = contagem1
+            cont1 = 0
+            visor2.innerHTML = cont1
+            cont = 0
+            visor1.innerHTML = cont
+        }
+        })
+       
+        btn_minus1.addEventListener('click', function (){
+            if(cont > 0)
+            {
+                cont = cont - 1
+                visor1.innerHTML = cont
+            }
+        })
+
+        btn_minus2.addEventListener('click', function (){
+            if(cont1 > 0)
+            {
+                cont1 = cont1 - 1
+                visor2.innerHTML = cont1
+            }
+        })
+        function zerar (){
+            visor1.innerHTML = 0
+            visor2.innerHTML = 0
+            cont = 0
+            cont1 = 0
+            contagem = 0
+            contagem1 = 0
+            box_queda1.innerHTML = contagem
+            box_queda2.innerHTML = contagem1
+            item = '+1'
+            document.querySelector('#button-plus').innerHTML = '+1'
+            document.querySelector('#button-plus1').innerHTML = '+1'
+        }
+
+        
+            button_minus_nos.addEventListener('click', function (){
+                if (contagem > 0)
+                {
+                    contagem = contagem - 1
+                    box_queda1.innerHTML = contagem
+                }
+            })
+
+            
+            button_minus_eles.addEventListener('click', function (){
+                if (contagem1 > 0)
+                {
+                    contagem1 = contagem1 - 1
+                    box_queda2.innerHTML = contagem1
+                }
+            })
+            
+            
+    </script>
+</body>
+</html>
